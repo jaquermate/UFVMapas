@@ -10,9 +10,10 @@
 		AD929D45203F536E0030E73F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD929D44203F536E0030E73F /* AppDelegate.swift */; };
 		AD929D47203F536E0030E73F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD929D46203F536E0030E73F /* ViewController.swift */; };
 		AD929D4A203F536E0030E73F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD929D48203F536E0030E73F /* Main.storyboard */; };
-		AD929D4D203F536E0030E73F /* UFVMapas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD929D4B203F536E0030E73F /* UFVMapas.xcdatamodeld */; };
 		AD929D4F203F536E0030E73F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD929D4E203F536E0030E73F /* Assets.xcassets */; };
 		AD929D52203F536E0030E73F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD929D50203F536E0030E73F /* LaunchScreen.storyboard */; };
+		AD929D5E203F53E90030E73F /* UFVMapas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD929D5C203F53E90030E73F /* UFVMapas.xcdatamodeld */; };
+		AD929D60203F54CC0030E73F /* ListaEstudiosTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD929D5F203F54CC0030E73F /* ListaEstudiosTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +21,11 @@
 		AD929D44203F536E0030E73F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD929D46203F536E0030E73F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AD929D49203F536E0030E73F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		AD929D4C203F536E0030E73F /* UFVMapas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UFVMapas.xcdatamodel; sourceTree = "<group>"; };
 		AD929D4E203F536E0030E73F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD929D51203F536E0030E73F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD929D53203F536E0030E73F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD929D5D203F53E90030E73F /* UFVMapas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UFVMapas.xcdatamodel; sourceTree = "<group>"; };
+		AD929D5F203F54CC0030E73F /* ListaEstudiosTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListaEstudiosTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +58,14 @@
 		AD929D43203F536E0030E73F /* UFVMapas */ = {
 			isa = PBXGroup;
 			children = (
+				AD929D5C203F53E90030E73F /* UFVMapas.xcdatamodeld */,
 				AD929D44203F536E0030E73F /* AppDelegate.swift */,
 				AD929D46203F536E0030E73F /* ViewController.swift */,
 				AD929D48203F536E0030E73F /* Main.storyboard */,
+				AD929D5F203F54CC0030E73F /* ListaEstudiosTableViewController.swift */,
 				AD929D4E203F536E0030E73F /* Assets.xcassets */,
 				AD929D50203F536E0030E73F /* LaunchScreen.storyboard */,
 				AD929D53203F536E0030E73F /* Info.plist */,
-				AD929D4B203F536E0030E73F /* UFVMapas.xcdatamodeld */,
 			);
 			path = UFVMapas;
 			sourceTree = "<group>";
@@ -140,7 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD929D4D203F536E0030E73F /* UFVMapas.xcdatamodeld in Sources */,
+				AD929D5E203F53E90030E73F /* UFVMapas.xcdatamodeld in Sources */,
+				AD929D60203F54CC0030E73F /* ListaEstudiosTableViewController.swift in Sources */,
 				AD929D47203F536E0030E73F /* ViewController.swift in Sources */,
 				AD929D45203F536E0030E73F /* AppDelegate.swift in Sources */,
 			);
@@ -312,14 +316,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		AD929D4B203F536E0030E73F /* UFVMapas.xcdatamodeld */ = {
+		AD929D5C203F53E90030E73F /* UFVMapas.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				AD929D4C203F536E0030E73F /* UFVMapas.xcdatamodel */,
+				AD929D5D203F53E90030E73F /* UFVMapas.xcdatamodel */,
 			);
-			currentVersion = AD929D4C203F536E0030E73F /* UFVMapas.xcdatamodel */;
+			currentVersion = AD929D5D203F53E90030E73F /* UFVMapas.xcdatamodel */;
 			path = UFVMapas.xcdatamodeld;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
