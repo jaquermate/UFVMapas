@@ -36,7 +36,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet var actualizarBoton: UIButton!
     @IBOutlet var trashBtn: UIBarButtonItem!
-    @IBAction func guardar(_ sender: Any) {
+    @IBAction func guardar(_ sender: Any) {//guarda un nuevo sitio de tipo estudio
         
         let _nombreLocalizacion = self.nombreLocalizacion.text!
         let _latitudLocalizacion = NSDecimalNumber(string: self.latitud.text!)
@@ -68,7 +68,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBAction func cancelar(_ sender: Any) {
          self.dismiss(animated: true, completion: nil)
     }
-    override func viewDidLoad() {
+    override func viewDidLoad() {//carga en la ventana de mapa segun las coordenadas correspondientes
         super.viewDidLoad()
         if identificador == "miIdentificador"{
             let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -79,10 +79,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
             labelNombre.text = nombre
             labelLong?.text = String(long)
             labelLat?.text = String(lat)
-        // Do any additional setup after loading the view, typically from a nib.
     }
 }
-    @IBAction func editarBtn(_ sender: Any) {
+    @IBAction func editarBtn(_ sender: Any) {//activa los botones relativos a la edicion
         self.nombreDisplay.isEnabled = true
         self.longDisplay.isEnabled = true
         self.latDisplay.isEnabled = true
@@ -90,7 +89,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         self.trashBtn.isEnabled = true
         
     }
-    @IBAction func actualizarBtn(_ sender: UIButton) {
+    @IBAction func actualizarBtn(_ sender: UIButton) {//guarda los cambios hechos al editar
         let _nombreLocalizacion = self.nombreDisplay.text!
         let _latitudLocalizacion = NSDecimalNumber(string: self.latDisplay.text!)
         let _longitudLocalizacion = NSDecimalNumber(string: self.longDisplay.text!)
@@ -131,7 +130,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func eliminarBtn(_ sender: UIBarButtonItem) {
+    @IBAction func eliminarBtn(_ sender: UIBarButtonItem) {//elimina un registro
+        //primero muestra una alerta de confirmacion
         let refreshAlert = UIAlertController(title: "Eliminar", message: "Seguro?", preferredStyle: UIAlertControllerStyle.alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
@@ -145,9 +145,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 if results.count > 0{
                     for result in results as! [NSManagedObject]{
                         if let nombreFetch = result.value(forKey: "nombre") as? String{
-                            
-                            print(nombreFetch)
-                            
                             if self.labelNombre!.text == nombreFetch{
                                 managedContext.delete(result)
                                 do{
@@ -170,12 +167,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Handle Cancel Logic here")
         }))
-        
         present(refreshAlert, animated: true, completion: nil)
-        
-        /*
-        
- */
     }
  
     
