@@ -25,7 +25,7 @@
 		AD929D51203F536E0030E73F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD929D53203F536E0030E73F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD929D5D203F53E90030E73F /* UFVMapas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UFVMapas.xcdatamodel; sourceTree = "<group>"; };
-		AD929D5F203F54CC0030E73F /* ListaEstudiosTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListaEstudiosTableViewController.swift; sourceTree = "<group>"; };
+		AD929D5F203F54CC0030E73F /* ListaEstudiosTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ListaEstudiosTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +312,7 @@
 				AD929D58203F536E0030E73F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

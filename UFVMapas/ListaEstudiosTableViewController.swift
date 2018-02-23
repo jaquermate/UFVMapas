@@ -12,25 +12,43 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
     var managedObjectContext : NSManagedObjectContext? = nil
     
     var fetchedResultsController  = NSFetchedResultsController<NSFetchRequestResult>()
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type{
-        case .insert: self.tableView.insertRows(at: [newIndexPath!], with: .fade)
-        case .delete: self.tableView.deleteRows(at: [indexPath!], with: .fade)
-        default:return
-        }
-    }
+    var path :IndexPath? = nil
+    var path2 :IndexPath? = nil
+    var nombreCD : String = ""
+    var latCD : Double = 0
+    var longCD : Double = 0
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         
         let managedObjectContext = appDelegate.persistentContainer.viewContext
-        
-        
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Estudios")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nombre", ascending:true)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+    //elimina los campos cuyo nombre esté vacío
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            if results.count > 0{
+                for result in results as! [NSManagedObject]{
+                    if  let nombreFetch = result.value(forKey: "nombre") as? String{
+                        
+                        if nombreFetch == ""{
+                            managedObjectContext.delete(result)
+                            do{  try managedObjectContext.save()
+                            }
+                            catch{
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch{
+            
+        }
         
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nombre", ascending:false)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         
         do{
@@ -46,6 +64,7 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+   
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -65,14 +84,17 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celdaBasica", for: indexPath)
+        path = indexPath
         
+        //print (String(describing: path))
         let registro : NSManagedObject = self.fetchedResultsController.object(at: indexPath) as! NSManagedObject
-        
-        // Configure the cell...
+       // longCD = registro.value(forKey: "longitud") as! Double
+       // latCD = registro.value(forKey: "latitud") as! Double
+        //nombreCD = registro.value(forKey: "nombre") as! String
         cell.textLabel?.text = registro.value(forKey: "nombre") as! String?
-        //cell.detailTextLabel?.text = registro.value(forKey: "tipo") as! String?
         return cell
     }
+    
     
 
     /*
@@ -101,23 +123,47 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
 
     }
     */
-
     /*
+    
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
+        */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type{
+        case .insert: self.tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete: self.tableView.deleteRows(at: [indexPath!], with: .fade)
+        default:return
+        }
     }
-    */
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "muestraMapa"{
+          //  let valorCelda : String = "A"
+            let indice = tableView.indexPathForSelectedRow
+            
+            let pantallaDestino: ViewController = segue.destination as! ViewController
+            let registro: NSManagedObject = self.fetchedResultsController.object(at: indice!) as! NSManagedObject
+            print (indice!)
+            
+            //if  pantallaDestino.value(forKeyPath: path) == pantallaDestino.nombre
+            print ("el valor es" + String(describing: path!.row))
+            //print (String(describing: path2))
+            //path?.item = 3
+            print(String(describing: path?.item))
+            pantallaDestino.identificador = "miIdentificador"
+            pantallaDestino.long = registro.value(forKey: "longitud") as! Double
+            pantallaDestino.lat = registro.value(forKey: "latitud") as! Double
+            pantallaDestino.nombre = registro.value(forKey: "nombre") as! String
+          
 
+    } 
+}
 }
