@@ -41,11 +41,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {//Carga en la ventana de mapa segun las coordenadas correspondientes
         super.viewDidLoad()
         if identificador == "miIdentificador"{
-            let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            
-            let region = MKCoordinateRegionMakeWithDistance(location, 70.0, 100.0)
-            
+            let span: MKCoordinateSpan = MKCoordinateSpanMake(0.001, 0.001)
+            let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
+            let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
             miMapa.setRegion(region, animated: true)
+            let anotacion = MKPointAnnotation()
+            anotacion.coordinate = location
+            anotacion.title = nombre
+            anotacion.subtitle = "Punto exacto de " + nombre
+            miMapa.addAnnotation(anotacion)
+            
             labelNombre.text = nombre
             labelLong?.text = String(long)
             labelLat?.text = String(lat)
