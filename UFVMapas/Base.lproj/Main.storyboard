@@ -135,9 +135,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="CCP-CQ-f2Q">
                                 <connections>
-                                    <segue destination="E14-n7-RGf" kind="popoverPresentation" identifier="muestraGuardar" popoverAnchorBarButtonItem="CCP-CQ-f2Q" id="Pmh-k3-wtX">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="muestraGuardar" id="eLl-oq-wru"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" style="plain" id="fcU-EF-yn3"/>
@@ -301,9 +299,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="U38-u8-GPz"/>
-                    </connections>
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="114" y="-419"/>

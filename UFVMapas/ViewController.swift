@@ -52,34 +52,47 @@ class ViewController: UIViewController, MKMapViewDelegate {
         }
     }
     @IBAction func guardar(_ sender: Any) {//Guarda un nuevo sitio de tipo estudio
-        
+        var nombreExistente = false
         let _nombreLocalizacion = self.nombreLocalizacion.text!
         let _latitudLocalizacion = NSDecimalNumber(string: self.latitud.text!)
         let _longitudLocalizacion = NSDecimalNumber(string: self.longitud.text!)
-        //Comprueba que no haya ningún campo vacío para no dejarte guardar
-        for i in 0 ... arrayNombresExistentes.count {
-            print(i)
-        }
+        //Ningun campo puede estar vacío
         if !(self.nombreLocalizacion.text?.isEmpty)! && !(self.latitud.text?.isEmpty)! && !(self.longitud.text?.isEmpty)!{
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-            
-            let managedContext = appDelegate.persistentContainer.viewContext
-            
-            let entidad = NSEntityDescription.entity(forEntityName: "Estudios", in: managedContext)
-            
-            let registro = NSManagedObject(entity: entidad!, insertInto: managedContext)
-            
-            registro.setValue(_nombreLocalizacion, forKey: "nombre")
-            registro.setValue(_latitudLocalizacion, forKey: "latitud")
-            registro.setValue(_longitudLocalizacion, forKey: "longitud")
-            do{
-                try managedContext.save()
-                print("localizacion guardada ok")
-            }   catch let error as NSError{
-                print("No se ha podido escribir la localizacion \(error), \(error.userInfo)")
+            //Comprueba si el nombre que intentas introducir ya existe
+            for i in 0 ... arrayNombresExistentes.count-1 {
+                if arrayNombresExistentes[i] == self.nombreLocalizacion.text {
+                    nombreExistente = true
+                }
+            }
+            //Ventana avisando de que ya existe
+            if nombreExistente == true{
+                let refreshAlert = UIAlertController(title: "Nombre ya introducido", message: "Por favor introduzca otro", preferredStyle: UIAlertControllerStyle.alert)
+                
+                refreshAlert.addAction(UIAlertAction(title: "Entendido", style: .default, handler: { (action: UIAlertAction!) in
+                    self.dismiss(animated: true, completion: nil)
+                }))
+                present(refreshAlert, animated: true, completion: nil)
+            } else{// Guarda el nuevo elemento
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+                
+                let managedContext = appDelegate.persistentContainer.viewContext
+                
+                let entidad = NSEntityDescription.entity(forEntityName: "Estudios", in: managedContext)
+                
+                let registro = NSManagedObject(entity: entidad!, insertInto: managedContext)
+                
+                registro.setValue(_nombreLocalizacion, forKey: "nombre")
+                registro.setValue(_latitudLocalizacion, forKey: "latitud")
+                registro.setValue(_longitudLocalizacion, forKey: "longitud")
+                do{
+                    try managedContext.save()
+                    print("localizacion guardada ok")
+                }   catch let error as NSError{
+                    print("No se ha podido escribir la localizacion \(error), \(error.userInfo)")
+                }
+                self.dismiss(animated: true, completion: nil)
             }
             
-            self.dismiss(animated: true, completion: nil)
         }
         
     }
@@ -100,41 +113,45 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let _nombreLocalizacion = self.nombreDisplay.text!
         let _latitudLocalizacion = NSDecimalNumber(string: self.latDisplay.text!)
         let _longitudLocalizacion = NSDecimalNumber(string: self.longDisplay.text!)
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult> (entityName : "Estudios")
-        
-        do {
-            let results = try managedContext.fetch(request)
-            if results.count > 0{
-                for result in results as! [NSManagedObject]{
-                    if let nombreFetch = result.value(forKey: "nombre") as? String{
-                        if nombreFetch == ""{
-                            managedContext.delete(result)
-                        }
-                        print(nombreFetch)
-                        
-                        if labelNombre!.text == nombreFetch{
-                            result.setValue(_nombreLocalizacion, forKey: "nombre")
-                            result.setValue(_latitudLocalizacion, forKey: "latitud")
-                            result.setValue(_longitudLocalizacion, forKey: "longitud")
-                            do{
-                                try managedContext.save()
-                            }
-                            catch{
+        print (arrayNombresExistentes)
+        //Ningun campo puede estar vacío
+        if !(self.nombreDisplay.text?.isEmpty)! && !(self.latDisplay.text?.isEmpty)! && !(self.longDisplay.text?.isEmpty)!{
+            // Guarda el nuevo elemento
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+                
+                let managedContext = appDelegate.persistentContainer.viewContext
+                let request = NSFetchRequest<NSFetchRequestResult> (entityName : "Estudios")
+                
+                do {
+                    let results = try managedContext.fetch(request)
+                    if results.count > 0{
+                        for result in results as! [NSManagedObject]{
+                            if let nombreFetch = result.value(forKey: "nombre") as? String{
+                                if nombreFetch == ""{
+                                    managedContext.delete(result)
+                                }
+                                print(nombreFetch)
                                 
+                                if labelNombre!.text == nombreFetch{
+                                    result.setValue(_nombreLocalizacion, forKey: "nombre")
+                                    result.setValue(_latitudLocalizacion, forKey: "latitud")
+                                    result.setValue(_longitudLocalizacion, forKey: "longitud")
+                                    do{
+                                        try managedContext.save()
+                                    }
+                                    catch{
+                                        
+                                    }
+                                }
                             }
                         }
                     }
                 }
+                catch{
+                    
+                }
+                self.dismiss(animated: true, completion: nil)
             }
-        }
-        catch{
-            
-        }
-        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func eliminarBtn(_ sender: UIBarButtonItem) {//elimina un registro

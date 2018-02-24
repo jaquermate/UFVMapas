@@ -117,7 +117,7 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
           
 
         } else if segue.identifier == "muestraGuardar"{
-            let pantallaDestino: UINavigationController = segue.destination as! UINavigationController
+            let pantallaDestino: ViewController = segue.destination as! ViewController
             pantallaDestino.arrayNombresExistentes = self.arrayNombresExistentes
         }
     }
