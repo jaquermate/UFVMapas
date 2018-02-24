@@ -39,22 +39,45 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet var trashBtn: UIBarButtonItem!
    var arrayNombresExistentes = [String]()
     
+    @IBAction func llevameBtn(_ sender: Any) {
+        //Te lleva a mapas de apple pero con un itinerario ya hecho
+        let latLLevame: CLLocationDegrees = Double(labelLat.text!)!
+        let longLLevame: CLLocationDegrees = Double(labelLong.text!)!
+        let regionDistance: CLLocationDistance = 1000;
+        let coordinates = CLLocationCoordinate2DMake(latLLevame, longLLevame)
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        
+        let options = [MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center), MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)]
+        
+        let placemark = MKPlacemark(coordinate: coordinates)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = "Casa de Chechu"
+        mapItem.openInMaps(launchOptions: options)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //El usuario nos da permiso para mandar notificaciones (solo se pregunta la 1a vez)
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             
         })
         //Carga en la ventana de mapa segun las coordenadas correspondientes
         if identificador == "miIdentificador"{
+            miMapa.showsBuildings = true
+            miMapa.showsCompass = true
+            miMapa.showsScale = true
             let span: MKCoordinateSpan = MKCoordinateSpanMake(0.001, 0.001)
             let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
             let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
             miMapa.setRegion(region, animated: true)
+            
+        
             let anotacion = MKPointAnnotation()
             anotacion.coordinate = location
             anotacion.title = nombre
             anotacion.subtitle = "Punto exacto de " + nombre
             miMapa.addAnnotation(anotacion)
+            
             
             labelNombre.text = nombre
             labelLong?.text = String(long)
@@ -66,12 +89,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let _nombreLocalizacion = self.nombreLocalizacion.text!
         let _latitudLocalizacion = NSDecimalNumber(string: self.latitud.text!)
         let _longitudLocalizacion = NSDecimalNumber(string: self.longitud.text!)
-                let content = UNMutableNotificationContent()
-                content.title = "Añadir"
-                content.subtitle = "Nuevo nombre: "
-               content.body = _nombreLocalizacion
-                content.badge = 1
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        //Doy valores a las var de las notificaciones
+        let content = UNMutableNotificationContent()
+        content.title = "Añadido"
+        content.subtitle = "Nuevo nombre: "
+        content.body = _nombreLocalizacion
+        content.badge = 1
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 8, repeats: false)
         //Ningun campo puede estar vacío
         if !(self.nombreLocalizacion.text?.isEmpty)! && !(self.latitud.text?.isEmpty)! && !(self.longitud.text?.isEmpty)!{
             //Comprueba si el nombre que intentas introducir ya existe
@@ -89,6 +113,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 }))
                 present(refreshAlert, animated: true, completion: nil)
             } else{// Guarda el nuevo elemento
+                //Manda la notificacion
                 let requestNot = UNNotificationRequest(identifier: "guardandoNombre", content: content, trigger: trigger)
                 UNUserNotificationCenter.current().add(requestNot, withCompletionHandler: nil)
                 guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -103,10 +128,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 registro.setValue(_latitudLocalizacion, forKey: "latitud")
                 registro.setValue(_longitudLocalizacion, forKey: "longitud")
                 
-                
                 do{
                     try managedContext.save()
-                    print("localizacion guardada ok")
+                    print("localizacion guardada ok. Latitud:" + String(describing: _latitudLocalizacion) + " , longitud: " + String(describing: _longitudLocalizacion))
+                        //String(_latitudLocalizacion) + " , longitud: " + _longitudLocalizacion)
                     
                 }   catch let error as NSError{
                     print("No se ha podido escribir la localizacion \(error), \(error.userInfo)")

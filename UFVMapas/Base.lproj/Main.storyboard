@@ -297,6 +297,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="satellite" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QFG-s9-hRz">
                                 <rect key="frame" x="13" y="71" width="388" height="365"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                             </mapView>
                             <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1G-qH-Taz">
                                 <rect key="frame" x="0.0" y="532" width="378" height="32"/>
@@ -384,6 +385,14 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0I-TX-32E">
+                                <rect key="frame" x="161" y="654" width="57" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Llévame"/>
+                                <connections>
+                                    <action selector="llevameBtn:" destination="1p7-Sa-8xI" eventType="touchUpInside" id="VLP-aS-P9L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -404,24 +413,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m0C-7c-vX2" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1637.68115942029" y="-563.31521739130437"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="dgw-jf-ifk">
-            <objects>
-                <viewController id="yIl-YM-gIS" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="yVY-Di-Ink"/>
-                        <viewControllerLayoutGuide type="bottom" id="dHz-tF-6Cr"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ypI-z4-xTw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HIX-bg-e5v" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2449" y="-551"/>
         </scene>
     </scenes>
 </document>
