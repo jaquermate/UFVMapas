@@ -17,6 +17,7 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
     var nombreCD : String = ""
     var latCD : Double = 0
     var longCD : Double = 0
+    var arrayNombresExistentes = [String]()
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -24,19 +25,22 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
         
         let managedObjectContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Estudios")
-    //elimina los campos cuyo nombre esté vacío
+    //Elimina los campos cuyo nombre esté vacío y almacena un array de los nombre existentes
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
             if results.count > 0{
                 for result in results as! [NSManagedObject]{
                     if  let nombreFetch = result.value(forKey: "nombre") as? String{
                         
-                        if nombreFetch == ""{
+                        if nombreFetch == ""{ //Vacios
                             managedObjectContext.delete(result)
                             do{  try managedObjectContext.save()
                             }
                             catch{
                             }
+                        } else { //Existentes
+                            arrayNombresExistentes.append(nombreFetch)
+                            print(arrayNombresExistentes)
                         }
                     }
                 }
@@ -112,6 +116,9 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
             pantallaDestino.nombre = registro.value(forKey: "nombre") as! String
           
 
+        } else if segue.identifier == "muestraGuardar"{
+            let pantallaDestino: UINavigationController = segue.destination as! UINavigationController
+            pantallaDestino.arrayNombresExistentes = self.arrayNombresExistentes
         }
     }
 }

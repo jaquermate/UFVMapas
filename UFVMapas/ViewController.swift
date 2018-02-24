@@ -36,11 +36,30 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet var actualizarBoton: UIButton!
     @IBOutlet var trashBtn: UIBarButtonItem!
-    @IBAction func guardar(_ sender: Any) {//guarda un nuevo sitio de tipo estudio
+   var arrayNombresExistentes = [String]()
+    
+    override func viewDidLoad() {//Carga en la ventana de mapa segun las coordenadas correspondientes
+        super.viewDidLoad()
+        if identificador == "miIdentificador"{
+            let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            
+            let region = MKCoordinateRegionMakeWithDistance(location, 70.0, 100.0)
+            
+            miMapa.setRegion(region, animated: true)
+            labelNombre.text = nombre
+            labelLong?.text = String(long)
+            labelLat?.text = String(lat)
+        }
+    }
+    @IBAction func guardar(_ sender: Any) {//Guarda un nuevo sitio de tipo estudio
         
         let _nombreLocalizacion = self.nombreLocalizacion.text!
         let _latitudLocalizacion = NSDecimalNumber(string: self.latitud.text!)
         let _longitudLocalizacion = NSDecimalNumber(string: self.longitud.text!)
+        //Comprueba que no haya ningún campo vacío para no dejarte guardar
+        for i in 0 ... arrayNombresExistentes.count {
+            print(i)
+        }
         if !(self.nombreLocalizacion.text?.isEmpty)! && !(self.latitud.text?.isEmpty)! && !(self.longitud.text?.isEmpty)!{
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
             
@@ -68,19 +87,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBAction func cancelar(_ sender: Any) {
          self.dismiss(animated: true, completion: nil)
     }
-    override func viewDidLoad() {//carga en la ventana de mapa segun las coordenadas correspondientes
-        super.viewDidLoad()
-        if identificador == "miIdentificador"{
-            let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            
-            let region = MKCoordinateRegionMakeWithDistance(location, 70.0, 100.0)
-            
-            miMapa.setRegion(region, animated: true)
-            labelNombre.text = nombre
-            labelLong?.text = String(long)
-            labelLat?.text = String(lat)
-    }
-}
+    
     @IBAction func editarBtn(_ sender: Any) {//activa los botones relativos a la edicion
         self.nombreDisplay.isEnabled = true
         self.longDisplay.isEnabled = true
