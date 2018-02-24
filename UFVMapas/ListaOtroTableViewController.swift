@@ -1,5 +1,5 @@
 //
-//  ListaEdificiosTableViewController.swift
+//  ListaOtroTableViewController.swift
 //  UFVMapas
 //
 //  Created by Jesus M Martínez de Juan on 24/2/18.
@@ -8,14 +8,14 @@
 
 import UIKit
 import CoreData
-class ListaEdificiosTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ListaOtroTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     var managedObjectContext : NSManagedObjectContext? = nil
-    var clasificacionElegida = "Edificio"
+    var clasificacionElegida = "Otro"
     var fetchedResultsController  = NSFetchedResultsController<NSFetchRequestResult>()
     var path :IndexPath? = nil
     var arrayNombresExistentes = [String]()
     override func viewDidLoad() {
-
+        
         super.viewDidLoad()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         
@@ -27,7 +27,6 @@ class ListaEdificiosTableViewController: UITableViewController, NSFetchedResults
             if results.count > 0{
                 for result in results as! [NSManagedObject]{
                     if  let nombreFetch = result.value(forKey: "nombre") as? String{
-                        
                         if nombreFetch == ""{ //Vacios
                             managedObjectContext.delete(result)
                             do{  try managedObjectContext.save()
@@ -49,6 +48,7 @@ class ListaEdificiosTableViewController: UITableViewController, NSFetchedResults
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nombre", ascending:true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
+        
         do{
             try fetchedResultsController.performFetch()
             print("datos cargados ok")
@@ -56,7 +56,6 @@ class ListaEdificiosTableViewController: UITableViewController, NSFetchedResults
             print("No se ha podido leer \(error), \(error.userInfo)")
         }
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -91,19 +90,21 @@ class ListaEdificiosTableViewController: UITableViewController, NSFetchedResults
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         let pantallaDestino: ViewController = segue.destination as! ViewController
         pantallaDestino.clasificacionElegida = clasificacionElegida
         //en la transicion prepara las variables para pasarlas entre vistas
         if segue.identifier == "muestraMapa"{
             let indice = tableView.indexPathForSelectedRow
+            
             let registro: NSManagedObject = self.fetchedResultsController.object(at: indice!) as! NSManagedObject
+            
             pantallaDestino.identificador = "miIdentificador"
             pantallaDestino.long = registro.value(forKey: "longitud") as! Double
             pantallaDestino.lat = registro.value(forKey: "latitud") as! Double
             pantallaDestino.nombre = registro.value(forKey: "nombre") as! String
-        } else if segue.identifier == "muestraGuardar"{
             
+            
+        } else if segue.identifier == "muestraGuardar"{
             pantallaDestino.arrayNombresExistentes = self.arrayNombresExistentes
         }
     }

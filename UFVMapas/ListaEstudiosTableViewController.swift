@@ -13,10 +13,6 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
     var clasificacionElegida = "Estudios"
     var fetchedResultsController  = NSFetchedResultsController<NSFetchRequestResult>()
     var path :IndexPath? = nil
-    var path2 :IndexPath? = nil
-    var nombreCD : String = ""
-    var latCD : Double = 0
-    var longCD : Double = 0
     var arrayNombresExistentes = [String]()
     override func viewDidLoad() {
         
@@ -24,7 +20,7 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         
         let managedObjectContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Estudios")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: clasificacionElegida)
     //Elimina los campos cuyo nombre esté vacío y almacena un array de los nombre existentes
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
@@ -48,24 +44,16 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
         catch{
             
         }
-        
-        //rellena la tabla dinamica con los datos del core data
+        //Rellena la tabla dinamica con los datos del core data
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nombre", ascending:true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
-        
         do{
             try fetchedResultsController.performFetch()
             print("datos cargados ok")
         }   catch let error as NSError{
             print("No se ha podido leer \(error), \(error.userInfo)")
         }
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
    
 
@@ -75,7 +63,6 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
     }
 
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.fetchedResultsController.sections!.count
     }
@@ -83,7 +70,6 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.fetchedResultsController.sections![section].numberOfObjects
     }
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celdaBasica", for: indexPath)
         path = indexPath
@@ -105,7 +91,7 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let pantallaDestino: ViewController = segue.destination as! ViewController
-        pantallaDestino.clasificacionElegida = "Estudios"
+        pantallaDestino.clasificacionElegida = clasificacionElegida
         //en la transicion prepara las variables para pasarlas entre vistas
         if segue.identifier == "muestraMapa"{
             let indice = tableView.indexPathForSelectedRow
@@ -116,7 +102,7 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
             pantallaDestino.long = registro.value(forKey: "longitud") as! Double
             pantallaDestino.lat = registro.value(forKey: "latitud") as! Double
             pantallaDestino.nombre = registro.value(forKey: "nombre") as! String
-          
+            
 
         } else if segue.identifier == "muestraGuardar"{
             //let pantallaDestino: ViewController = segue.destination as! ViewController
@@ -124,37 +110,3 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
         }
     }
 }
-/*
- // Override to support conditional editing of the table view.
- override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the specified item to be editable.
- return true
- }
- */
-
-/*
- // Override to support editing the table view.
- override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
- if editingStyle == .delete {
- // Delete the row from the data source
- tableView.deleteRows(at: [indexPath], with: .fade)
- } else if editingStyle == .insert {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
- 
- }
- */
-/*
- 
- // Override to support conditional rearranging of the table view.
- override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the item to be re-orderable.
- return true
- }
- */

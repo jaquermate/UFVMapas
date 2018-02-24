@@ -39,7 +39,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet var actualizarBoton: UIButton!
     @IBOutlet var trashBtn: UIBarButtonItem!
-   var arrayNombresExistentes = [String]()
+    var arrayNombresExistentes = [String]()
+    
     
     @IBAction func llevameBtn(_ sender: Any) {
         //Te lleva a mapas de apple pero con un itinerario ya hecho
