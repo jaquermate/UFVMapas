@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import MapKit
+import UserNotifications
 class ViewController: UIViewController, MKMapViewDelegate {
     var clasificacionElegida = ""
     var nombre: String = ""
@@ -38,8 +39,12 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet var trashBtn: UIBarButtonItem!
    var arrayNombresExistentes = [String]()
     
-    override func viewDidLoad() {//Carga en la ventana de mapa segun las coordenadas correspondientes
+    override func viewDidLoad() {
         super.viewDidLoad()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
+            
+        })
+        //Carga en la ventana de mapa segun las coordenadas correspondientes
         if identificador == "miIdentificador"{
             let span: MKCoordinateSpan = MKCoordinateSpanMake(0.001, 0.001)
             let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
@@ -61,6 +66,12 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let _nombreLocalizacion = self.nombreLocalizacion.text!
         let _latitudLocalizacion = NSDecimalNumber(string: self.latitud.text!)
         let _longitudLocalizacion = NSDecimalNumber(string: self.longitud.text!)
+                let content = UNMutableNotificationContent()
+                content.title = "Añadir"
+                content.subtitle = "Nuevo nombre: "
+               content.body = _nombreLocalizacion
+                content.badge = 1
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         //Ningun campo puede estar vacío
         if !(self.nombreLocalizacion.text?.isEmpty)! && !(self.latitud.text?.isEmpty)! && !(self.longitud.text?.isEmpty)!{
             //Comprueba si el nombre que intentas introducir ya existe
@@ -78,6 +89,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 }))
                 present(refreshAlert, animated: true, completion: nil)
             } else{// Guarda el nuevo elemento
+                let requestNot = UNNotificationRequest(identifier: "guardandoNombre", content: content, trigger: trigger)
+                UNUserNotificationCenter.current().add(requestNot, withCompletionHandler: nil)
                 guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
                 
                 let managedContext = appDelegate.persistentContainer.viewContext
@@ -89,12 +102,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 registro.setValue(_nombreLocalizacion, forKey: "nombre")
                 registro.setValue(_latitudLocalizacion, forKey: "latitud")
                 registro.setValue(_longitudLocalizacion, forKey: "longitud")
+                
+                
                 do{
                     try managedContext.save()
                     print("localizacion guardada ok")
+                    
                 }   catch let error as NSError{
                     print("No se ha podido escribir la localizacion \(error), \(error.userInfo)")
                 }
+                navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
             }
             
@@ -103,7 +120,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func cancelar(_ sender: Any) {
-         self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func editarBtn(_ sender: Any) {//activa los botones relativos a la edicion
@@ -155,6 +173,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 catch{
                     
                 }
+                navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
             }
     }
@@ -190,6 +209,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             catch{
                 
             }
+            self.navigationController?.popViewController(animated: true)
             self.dismiss(animated: true, completion: nil)
         }))
         
