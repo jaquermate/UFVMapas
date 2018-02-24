@@ -16,6 +16,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     var lat: Double = 0
     var long: Double = 0
     var identificador: String = ""
+    
+    
     @IBOutlet var miMapa: MKMapView!
     @IBOutlet var labelNombre: UILabel!
     @IBOutlet var labelLong: UILabel!
@@ -58,6 +60,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(clasificacionElegida)
         //El usuario nos da permiso para mandar notificaciones (solo se pregunta la 1a vez)
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             
@@ -113,15 +116,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
                     self.dismiss(animated: true, completion: nil)
                 }))
                 present(refreshAlert, animated: true, completion: nil)
-            } else{// Guarda el nuevo elemento
+            } else{//Si no existe
+                // Guarda el nuevo elemento
                 //Manda la notificacion
                 let requestNot = UNNotificationRequest(identifier: "guardandoNombre", content: content, trigger: trigger)
                 UNUserNotificationCenter.current().add(requestNot, withCompletionHandler: nil)
                 guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
                 
                 let managedContext = appDelegate.persistentContainer.viewContext
-                
-                let entidad = NSEntityDescription.entity(forEntityName: "Estudios", in: managedContext)
+                //En la siguiente linea se ve que se hace en funcionde la clasificacionElegida pasada en el segue
+                let entidad = NSEntityDescription.entity(forEntityName: clasificacionElegida, in: managedContext)
                 
                 let registro = NSManagedObject(entity: entidad!, insertInto: managedContext)
                 
@@ -132,7 +136,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 do{
                     try managedContext.save()
                     print("localizacion guardada ok. Latitud:" + String(describing: _latitudLocalizacion) + " , longitud: " + String(describing: _longitudLocalizacion))
-                        //String(_latitudLocalizacion) + " , longitud: " + _longitudLocalizacion)
                     
                 }   catch let error as NSError{
                     print("No se ha podido escribir la localizacion \(error), \(error.userInfo)")
@@ -169,7 +172,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
                 
                 let managedContext = appDelegate.persistentContainer.viewContext
-                let request = NSFetchRequest<NSFetchRequestResult> (entityName : "Estudios")
+                let request = NSFetchRequest<NSFetchRequestResult> (entityName : clasificacionElegida)
                 
                 do {
                     let results = try managedContext.fetch(request)
@@ -212,7 +215,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
             
             let managedContext = appDelegate.persistentContainer.viewContext
-            let request = NSFetchRequest<NSFetchRequestResult> (entityName : "Estudios")
+            let request = NSFetchRequest<NSFetchRequestResult> (entityName : self.clasificacionElegida)
             
             do {
                 let results = try managedContext.fetch(request)

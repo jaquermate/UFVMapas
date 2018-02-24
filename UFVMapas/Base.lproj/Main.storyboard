@@ -9,6 +9,53 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Edificio-->
+        <scene sceneID="NjY-cz-FNA">
+            <objects>
+                <tableViewController id="BeH-0h-b2K" customClass="ListaEdificiosTableViewController" customModule="UFVMapas" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jNG-PB-iK7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="celdaBasica" textLabel="kAt-re-Fe2" style="IBUITableViewCellStyleDefault" id="bLd-l9-l1r">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bLd-l9-l1r" id="849-Mz-ZDS">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kAt-re-Fe2">
+                                            <rect key="frame" x="15" y="0.0" width="384" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="1p7-Sa-8xI" kind="show" identifier="muestraMapa" id="cUd-UG-V7N"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="BeH-0h-b2K" id="WEE-s8-2xE"/>
+                            <outlet property="delegate" destination="BeH-0h-b2K" id="B7T-zw-TZW"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Edificio" id="mRU-E9-nUt">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="0Ts-BQ-t04">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="muestraGuardar" id="Tpc-uu-ek2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sVK-e8-vSg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-243" y="7"/>
+        </scene>
         <!--Datos-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -87,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="575" y="-563"/>
+            <point key="canvasLocation" x="687" y="-733"/>
         </scene>
         <!--Estudios-->
         <scene sceneID="XXK-EX-CWt">
@@ -179,7 +226,7 @@
                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="6B8-uf-VgK" kind="show" id="0WN-s8-4Af"/>
+                                            <segue destination="6B8-uf-VgK" kind="show" identifier="muestraEstudios" id="0WN-s8-4Af"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="0wj-7U-tRL" detailTextLabel="GE4-Bz-tBg" imageView="6Ju-Al-8yp" rowHeight="70" style="IBUITableViewCellStyleValue1" id="QH4-G9-w0V">
@@ -210,6 +257,9 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="BeH-0h-b2K" kind="show" id="D4t-e9-NSj"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="q5a-0a-Ek4" detailTextLabel="aNW-Ix-7oy" imageView="Sxz-75-0CM" rowHeight="70" style="IBUITableViewCellStyleValue1" id="eU9-R5-lGX">
                                         <rect key="frame" x="0.0" y="168" width="414" height="70"/>
@@ -433,7 +483,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m0C-7c-vX2" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1637.68115942029" y="-563.31521739130437"/>
+            <point key="canvasLocation" x="1622" y="-766"/>
         </scene>
     </scenes>
     <resources>
@@ -442,4 +492,8 @@
         <image name="estudios.png" width="550" height="442"/>
         <image name="servicio.png" width="300" height="300"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="cUd-UG-V7N"/>
+        <segue reference="Tpc-uu-ek2"/>
+    </inferredMetricsTieBreakers>
 </document>

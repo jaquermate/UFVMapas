@@ -1,16 +1,16 @@
 //
-//  ListaEstudiosTableViewController.swift
+//  ListaEdificiosTableViewController.swift
 //  UFVMapas
 //
-//  Created by Jesus M Martínez de Juan on 22/2/18.
+//  Created by Jesus M Martínez de Juan on 24/2/18.
 //  Copyright © 2018 CETYS. All rights reserved.
 //
 
 import UIKit
 import CoreData
-class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ListaEdificiosTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     var managedObjectContext : NSManagedObjectContext? = nil
-    var clasificacionElegida = "Estudios"
+    var clasificacionElegida = "Edificio"
     var fetchedResultsController  = NSFetchedResultsController<NSFetchRequestResult>()
     var path :IndexPath? = nil
     var path2 :IndexPath? = nil
@@ -24,13 +24,14 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         
         let managedObjectContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Estudios")
-    //Elimina los campos cuyo nombre esté vacío y almacena un array de los nombre existentes
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Edificio")
+        //Elimina los campos cuyo nombre esté vacío y almacena un array de los nombre existentes
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
             if results.count > 0{
                 for result in results as! [NSManagedObject]{
                     if  let nombreFetch = result.value(forKey: "nombre") as? String{
+                        
                         if nombreFetch == ""{ //Vacios
                             managedObjectContext.delete(result)
                             do{  try managedObjectContext.save()
@@ -60,30 +61,30 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
         }   catch let error as NSError{
             print("No se ha podido leer \(error), \(error.userInfo)")
         }
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-   
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.fetchedResultsController.sections!.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.fetchedResultsController.sections![section].numberOfObjects
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celdaBasica", for: indexPath)
         path = indexPath
@@ -93,7 +94,7 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type{
@@ -103,9 +104,10 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
         }
     }
     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         let pantallaDestino: ViewController = segue.destination as! ViewController
-        pantallaDestino.clasificacionElegida = "Estudios"
+        pantallaDestino.clasificacionElegida = "Edificio"
         //en la transicion prepara las variables para pasarlas entre vistas
         if segue.identifier == "muestraMapa"{
             let indice = tableView.indexPathForSelectedRow
@@ -116,10 +118,12 @@ class ListaEstudiosTableViewController: UITableViewController, NSFetchedResultsC
             pantallaDestino.long = registro.value(forKey: "longitud") as! Double
             pantallaDestino.lat = registro.value(forKey: "latitud") as! Double
             pantallaDestino.nombre = registro.value(forKey: "nombre") as! String
-          
-
+            
+            
         } else if segue.identifier == "muestraGuardar"{
-            //let pantallaDestino: ViewController = segue.destination as! ViewController
+            
+            
+            print(pantallaDestino.clasificacionElegida + " y " + self.clasificacionElegida)
             pantallaDestino.arrayNombresExistentes = self.arrayNombresExistentes
         }
     }

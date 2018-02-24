@@ -11,6 +11,7 @@
 		AD1A0D4D2041C7E30031EA94 /* edificio.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1A0D492041C7E30031EA94 /* edificio.png */; };
 		AD1A0D4E2041C7E30031EA94 /* estudios.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1A0D4A2041C7E30031EA94 /* estudios.png */; };
 		AD1A0D4F2041C7E30031EA94 /* servicio.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1A0D4B2041C7E30031EA94 /* servicio.png */; };
+		AD2E820D2041F18400F12F6D /* ListaEdificiosTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E820C2041F18400F12F6D /* ListaEdificiosTableViewController.swift */; };
 		AD929D45203F536E0030E73F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD929D44203F536E0030E73F /* AppDelegate.swift */; };
 		AD929D47203F536E0030E73F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD929D46203F536E0030E73F /* ViewController.swift */; };
 		AD929D4A203F536E0030E73F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD929D48203F536E0030E73F /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		AD1A0D492041C7E30031EA94 /* edificio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edificio.png; sourceTree = "<group>"; };
 		AD1A0D4A2041C7E30031EA94 /* estudios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = estudios.png; sourceTree = "<group>"; };
 		AD1A0D4B2041C7E30031EA94 /* servicio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = servicio.png; sourceTree = "<group>"; };
+		AD2E820C2041F18400F12F6D /* ListaEdificiosTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListaEdificiosTableViewController.swift; sourceTree = "<group>"; };
 		AD929D41203F536E0030E73F /* UFVMapas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UFVMapas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD929D44203F536E0030E73F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD929D46203F536E0030E73F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				AD929D46203F536E0030E73F /* ViewController.swift */,
 				AD929D48203F536E0030E73F /* Main.storyboard */,
 				AD929D5F203F54CC0030E73F /* ListaEstudiosTableViewController.swift */,
+				AD2E820C2041F18400F12F6D /* ListaEdificiosTableViewController.swift */,
 				AD929D4E203F536E0030E73F /* Assets.xcassets */,
 				AD929D50203F536E0030E73F /* LaunchScreen.storyboard */,
 				AD929D53203F536E0030E73F /* Info.plist */,
@@ -171,6 +174,7 @@
 				AD929D60203F54CC0030E73F /* ListaEstudiosTableViewController.swift in Sources */,
 				AD929D47203F536E0030E73F /* ViewController.swift in Sources */,
 				AD929D45203F536E0030E73F /* AppDelegate.swift in Sources */,
+				AD2E820D2041F18400F12F6D /* ListaEdificiosTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
