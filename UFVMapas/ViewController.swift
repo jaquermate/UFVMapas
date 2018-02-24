@@ -43,6 +43,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         //Te lleva a mapas de apple pero con un itinerario ya hecho
         let latLLevame: CLLocationDegrees = Double(labelLat.text!)!
         let longLLevame: CLLocationDegrees = Double(labelLong.text!)!
+        let nombreLLevame: String = labelNombre.text!
         let regionDistance: CLLocationDistance = 1000;
         let coordinates = CLLocationCoordinate2DMake(latLLevame, longLLevame)
         let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
@@ -51,7 +52,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         let placemark = MKPlacemark(coordinate: coordinates)
         let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = "Casa de Chechu"
+        mapItem.name = nombreLLevame
         mapItem.openInMaps(launchOptions: options)
     }
     

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD1A0D4C2041C7E30031EA94 /* actividad.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1A0D482041C7E30031EA94 /* actividad.png */; };
+		AD1A0D4D2041C7E30031EA94 /* edificio.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1A0D492041C7E30031EA94 /* edificio.png */; };
+		AD1A0D4E2041C7E30031EA94 /* estudios.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1A0D4A2041C7E30031EA94 /* estudios.png */; };
+		AD1A0D4F2041C7E30031EA94 /* servicio.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1A0D4B2041C7E30031EA94 /* servicio.png */; };
 		AD929D45203F536E0030E73F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD929D44203F536E0030E73F /* AppDelegate.swift */; };
 		AD929D47203F536E0030E73F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD929D46203F536E0030E73F /* ViewController.swift */; };
 		AD929D4A203F536E0030E73F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD929D48203F536E0030E73F /* Main.storyboard */; };
@@ -17,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD1A0D482041C7E30031EA94 /* actividad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = actividad.png; sourceTree = "<group>"; };
+		AD1A0D492041C7E30031EA94 /* edificio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edificio.png; sourceTree = "<group>"; };
+		AD1A0D4A2041C7E30031EA94 /* estudios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = estudios.png; sourceTree = "<group>"; };
+		AD1A0D4B2041C7E30031EA94 /* servicio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = servicio.png; sourceTree = "<group>"; };
 		AD929D41203F536E0030E73F /* UFVMapas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UFVMapas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD929D44203F536E0030E73F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD929D46203F536E0030E73F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +47,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD1A0D502041C7EA0031EA94 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				AD1A0D482041C7E30031EA94 /* actividad.png */,
+				AD1A0D492041C7E30031EA94 /* edificio.png */,
+				AD1A0D4A2041C7E30031EA94 /* estudios.png */,
+				AD1A0D4B2041C7E30031EA94 /* servicio.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		AD929D38203F536D0030E73F = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +77,7 @@
 		AD929D43203F536E0030E73F /* UFVMapas */ = {
 			isa = PBXGroup;
 			children = (
+				AD1A0D502041C7EA0031EA94 /* images */,
 				AD929D5C203F53E90030E73F /* UFVMapas.xcdatamodeld */,
 				AD929D44203F536E0030E73F /* AppDelegate.swift */,
 				AD929D46203F536E0030E73F /* ViewController.swift */,
@@ -131,8 +151,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD929D52203F536E0030E73F /* LaunchScreen.storyboard in Resources */,
+				AD1A0D4C2041C7E30031EA94 /* actividad.png in Resources */,
 				AD929D4F203F536E0030E73F /* Assets.xcassets in Resources */,
 				AD929D4A203F536E0030E73F /* Main.storyboard in Resources */,
+				AD1A0D4D2041C7E30031EA94 /* edificio.png in Resources */,
+				AD1A0D4F2041C7E30031EA94 /* servicio.png in Resources */,
+				AD1A0D4E2041C7E30031EA94 /* estudios.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
